@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>NBA QUIZ</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+    <h1 id="Title">Its the number 1 NBA quiz in Tucson babyyy!</h1>
+
+    <div class="jumbotron vertical-center">
+
+        <div class="container">
+            <div class="col">
+                <!-- Question should be displayed here -->
+                <h1 class="display-4"></h1>
+                <!-- location of high scores list -->
+                <div class="col">
+
+                </div>
+                <!-- location of Quiz interface -->
+                <div class="col">
+                    <div class="row">
+                        <div class="col">
+                            <button type="button" id="btn1" class="btn btn-primary btn-lg btn-block">Block level
+                                button</button>
+                        </div>
+                        <div class="col">
+                            <button type="button" id="btn2" class="btn btn-primary btn-lg btn-block">Block level
+                                button</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <button type="button" id="btn3" class="btn btn-primary btn-lg btn-block">Block level
+                                button</button>
+                        </div>
+                        <div class="col">
+                            <button type="button" id="btn4" class="btn btn-primary btn-lg btn-block">Block level
+                                button</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Location of score tracker -->
+                <div id="score" class="row">
+                    Score: 0
+                </div>
+                <!-- location of submit button -->
+                <div class="row">
+                    <button type="button" class="btn btn-secondary btn-lg btn-block">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- location of timer -->
+    <div class="col">
+        Quiz Ends in <span id="time">60</span> seconds!
+    </div>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+        var Questions = [
+            {
+                Question: "Who does Lebron James play for?",
+                A1: "Los Angeles Lakers",
+                A2: "Denver Nuggets",
+                A3: "Los Angeles Clippers",
+                A4: "Brooklyn Nets",
+                Answer: "Los Angeles Lakers"
+            },
+            {
+                Question: "Who was named MVP of the 2019 NBA Championship?",
+                A1: "Danny Green",
+                A2: "Paul George",
+                A3: "Timmy Nipples",
+                A4: "Kawhi Leonard",
+                Answer: "Kawhi Leonard"
+            },
+            {
+                Question: "How many times have the Denver Nuggets won an NBA Championship?",
+                A1: 0,
+                A2: 1,
+                A3: 2,
+                A4: 3,
+                Answer: 0
+            },
+            {
+                Question: "Where did Kawhi Leonard play college basketball?",
+                A1: "Kansas University",
+                A2: "University of Denver",
+                A3: "San Diego State University",
+                A4: "Duke University",
+                Answer: "San Diego State University"
+            },
+            {
+                Question: "Which Denver Nuggets player made first team all NBA in 2019?",
+                A1: "Jamal Murray",
+                A2: "Jeremi Grant",
+                A3: "Paul Milsap",
+                A4: "Nikola Jokic",
+                Answer: "Nikola Jokic"
+            }
+        ]
+        //Timer
+        function startTimer(duration, display) {
+            var timer = duration, minutes, seconds;
+            setInterval(function () {
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                display.textContent = minutes + ":" + seconds;
+
+                if (--timer < 0) {
+                    timer = duration;
+                }
+            }, 1000);
+        }
+
+        window.onload = function () {
+            // var fiveMinutes = 60 * 5,
+            display = document.querySelector('#time');
+            startTimer(60, display);
+        };
+
+        var score = 0;
+        var i = 0;
+
+        //Displaying Question
+        $(".display-4").html(Questions[0].Question);
+        //Labeling Buttons with possible answers and amending the answer for checking later
+        $("#btn1").html(Questions[0].A1);
+        $("#btn1").attr("key", Questions[0].Answer);
+        $("#btn2").html(Questions[0].A2);
+        $("#btn2").attr("key", Questions[0].Answer);
+        $("#btn3").html(Questions[0].A3);
+        $("#btn3").attr("key", Questions[0].Answer);
+        $("#btn4").html(Questions[0].A4);
+        $("#btn4").attr("key", Questions[0].Answer);
+
+        //Checking if button clicked is the right answer
+        $(".btn-primary").click(function () {
+            console.log("choice: " + $(this).text());
+            console.log("answer: " + $(this).attr("key"));
+            if ($(this).text() === $(this).attr("key")) {
+                alert("Correct!");
+                score++;
+                i++;
+                document.getElementById("score").innerHTML = "Score: " + score;
+            }
+            else {
+                alert("Incorrect!");
+                score--;
+                i++;
+                document.getElementById("score").innerHTML = "Score: " + score;
+            }
+            //Displaying Question
+            $(".display-4").html(Questions[i].Question);
+            //Labeling Buttons with possible answers and amending the answer for checking later
+            $("#btn1").html(Questions[i].A1);
+            $("#btn1").attr("key", Questions[i].Answer);
+            $("#btn2").html(Questions[i].A2);
+            $("#btn2").attr("key", Questions[i].Answer);
+            $("#btn3").html(Questions[i].A3);
+            $("#btn3").attr("key", Questions[i].Answer);
+            $("#btn4").html(Questions[i].A4);
+            $("#btn4").attr("key", Questions[i].Answer);
+            console.log("score: " + score);
+        })
+        console.log("score: " + score);
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,20 @@
+
+#Title {
+  text-align: center;
+}
+.jumbotron{
+  width: 800px;
+  margin: 0 auto;
+}
+.display-4{
+  text-align: center;
+}
+.btn{
+  padding: 25px;
+  margin: 10px auto;
+}
+#score{
+  text-align: center;
+  font-size: 25px;
+  margin: 40px auto;
+}
